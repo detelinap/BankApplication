@@ -34,6 +34,20 @@ public class BankService {
 		return null;
 	}
 	
+	public static void addBranch(Bank b) {
+		b.getBranches().add(BranchService.addBranch());
+	}
 	
+	
+	static Branch returnBranch(String name, Bank b) {
+
+		for (Branch branch : b.getBranches()) {
+			if (branch.getName().equals(name)) {
+				return branch;
+			}
+		}
+		return null;
+
+	}	
 	
 }

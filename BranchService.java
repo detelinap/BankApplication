@@ -32,7 +32,7 @@ public class BranchService {
 		boolean addCustomers = true;
 		String decision = null;
 		while (addCustomers == true) {
-			System.out.println("Would you like to add more customers to your branch " + b.getBranchName() + " ?");
+			System.out.println("Would you like to add more customers to your branch " + b.getName() + " ?");
 			try {
 				decision = reader.readLine();
 			} catch (IOException e) {
