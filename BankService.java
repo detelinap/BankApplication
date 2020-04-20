@@ -3,6 +3,7 @@ package bankpck;
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
+import java.util.ArrayList;
 
 public class BankService {
 
@@ -17,23 +18,22 @@ public class BankService {
 			e.printStackTrace();
 		}
 		Bank b = new Bank(name);
-		System.out.println("New Bank " + name + "added. Please add your first branch :");
+		System.out.println("New Bank " + name + " added. Please add your first branch :");
 		b.getBranches().add(BranchService.addBranch());
 		return b;
 	}
-	
-	private Branch returnBranch(String name, Bank b) {
+
+	public static Customer returnBankCustomer(String name, Bank b) {
 		for (Branch branch : b.getBranches()) {
-			if (branch.getBranchName() == name) {
-				return branch;
-			}
-		}
+			Customer c = BranchService.returnCustomer(name, branch);
+			if (c != null) {
+				CustomerService.customerInformation(c);;
+				return BranchService.returnCustomer(name, branch);
+			} 
+		}System.out.println("No such customer");
 		return null;
 	}
 	
-	private Customer returnCustomer(String name, Bank b) {
-		Branch branch = returnBranch(name, b);
-		System.out.println("Customer found in branch "+branch.getBranchName()+" .");
-		return BranchService.findCustomer(name, branch);
-	}
+	
+	
 }

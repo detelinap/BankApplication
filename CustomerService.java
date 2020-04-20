@@ -20,7 +20,7 @@ public class CustomerService {
 			e.printStackTrace();
 		}
 		Customer c = new Customer (name);
-		System.out.println("New customer " + name + "added. Please add your first transaction :");
+		System.out.println("New customer " + name + " added. Please add your first transaction :");
 		addCustomerTransaction(c);
 		return c;
 
@@ -38,11 +38,11 @@ public class CustomerService {
 	
 	public static void customerInformation(Customer c) {
 		int i = 1;
-		System.out.println("Name of customer :" + c.getName());
-		System.out.println("Total number of customer transactions :" + c.getTransactions().size());
+		System.out.println("Name of customer : " + c.getName());
+		System.out.println("Total number of customer transactions : " + c.getTransactions().size());
 		for (Transaction newT : c.getTransactions()) {
 			System.out.println("Transaction #"+i+" :");
-			c.getTransactions().get(c.getTransactions().indexOf(newT)).toString();
+			System.out.println(newT.toString());
 		}
 		
 	}

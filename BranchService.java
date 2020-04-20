@@ -17,7 +17,7 @@ public class BranchService {
 			e.printStackTrace();
 		}
 		Branch b = new Branch(name);
-		System.out.println("New Branch " + name + "added. Please add your first customer :");
+		System.out.println("New Branch " + name + " added. Please add your first customer :");
 		addCustomer(b);
 		addMoreCustomers(b);
 		return b;
@@ -48,33 +48,9 @@ public class BranchService {
 		}
 
 	}
-
-	public static Customer findCustomer(String name, Branch b) {
-		Customer c = returnCustomer(name, b);
-		if (c == null) {
-			System.out.println(
-					"Customer not found. Would you like to create a new customer with the name " + name + " ?");
-			String decision = null;
-			try {
-				decision = reader.readLine();
-			} catch (IOException e) {
-				e.printStackTrace();
-			}
-			if (decision.equalsIgnoreCase("yes")) {
-				Customer result = CustomerService.addCustomerInformation(name);
-				b.getCustomers().add(result);
-				return result;
-			} else {
-				return null;
-			}
-		} else {
-			return c;
-		}
-
-	}
-
+	
 	public static void addTransactionToCustomer(String name, Branch b) {
-		Customer customer = findCustomer(name, b);
+		Customer customer = returnCustomer(name, b);
 		if (customer != null) {
 			CustomerService.addCustomerTransaction(customer);
 		} else {
@@ -82,10 +58,10 @@ public class BranchService {
 		}
 	}
 
-	private static Customer returnCustomer(String name, Branch b) {
+	static Customer returnCustomer(String name, Branch b) {
 
 		for (Customer customer : b.getCustomers()) {
-			if (customer.getName() == name) {
+			if (customer.getName().equals(name)) {
 				return customer;
 			}
 		}

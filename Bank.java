@@ -16,14 +16,9 @@ public class Bank {
 	public ArrayList<Branch> getBranches() {
 		return branches;
 	}
-	public void setBranches(ArrayList<Branch> branches) {
-		this.branches = branches;
-	}
+
 	public String getName() {
 		return name;
-	}
-	public void setName(String name) {
-		this.name = name;
 	}
 
 }
