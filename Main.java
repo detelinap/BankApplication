@@ -1,15 +1,22 @@
 package bankpck;
 
+import java.io.IOException;
+
 import bankpck.models.Bank;
-import bankpck.services.BankService;
+import bankpck.services.BankServiceImpl;
 
 public class Main {
 
 	public static void main(String[] args) {
 		
-		Bank newBank = BankService.addBank();
-		
-		BankService.returnBankCustomer("John", newBank);
+		BankServiceImpl bankService = new BankServiceImpl();
+		bankService.programBegin();
+		Bank newBank = bankService.addBank();
+		try {
+			bankService.choice(newBank);
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
 		
 	}
 

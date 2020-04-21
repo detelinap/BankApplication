@@ -4,14 +4,15 @@ import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
 
+import bankpck.interfaces.TransactionService;
 import bankpck.models.Transaction;
 
-public class TransactionService {
+public class TransactionServiceImpl implements TransactionService {
 	
 	static BufferedReader reader = 
 			  new BufferedReader(new InputStreamReader(System.in));
 	
-	public static Transaction createTransaction() {
+	public Transaction createTransaction() {
 		System.out.println("What's the name of this transaction?");
 		String name = null;
 		double ammount = 0;

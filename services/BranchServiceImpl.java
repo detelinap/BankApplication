@@ -4,14 +4,18 @@ import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
 
+import bankpck.interfaces.BranchService;
+import bankpck.interfaces.CustomerService;
 import bankpck.models.Branch;
 import bankpck.models.Customer;
 
-public class BranchService {
+public class BranchServiceImpl implements BranchService {
 
 	static BufferedReader reader = new BufferedReader(new InputStreamReader(System.in));
-
-	public static Branch addBranch() {
+	
+	private CustomerService customerService = new CustomerServiceImpl();
+	
+	public Branch addBranch() {
 		System.out.println("What is the name of the Branch?");
 		String name = null;
 		try {
@@ -20,18 +24,17 @@ public class BranchService {
 			e.printStackTrace();
 		}
 		Branch b = new Branch(name);
-		System.out.println("New Branch " + name + " added. Please add your first customer :");
+		System.out.println("New Branch " + name + " added.");
 		addCustomer(b);
-		addMoreCustomers(b);
 		return b;
 	}
 
-	public static void addCustomer(Branch b) {
+	public void addCustomer(Branch b) {
 		System.out.println("Please add your customer information.");
-		b.getCustomers().add(CustomerService.addCustomerInformation());
+		b.getCustomers().add(customerService.addCustomerInformation());
 	}
 
-	public static void addMoreCustomers(Branch b) {
+	public void addMoreCustomers(Branch b) {
 		boolean addCustomers = true;
 		String decision = null;
 		while (addCustomers == true) {
@@ -43,7 +46,7 @@ public class BranchService {
 			}
 			if (decision.equalsIgnoreCase("yes")) {
 				addCustomers = true;
-				BranchService.addCustomer(b);
+				addCustomer(b);
 			} else {
 				addCustomers = false;
 			}
@@ -52,16 +55,16 @@ public class BranchService {
 
 	}
 	
-	public static void addTransactionToCustomer(String name, Branch b) {
+	public void addTransactionToCustomer(String name, Branch b) {
 		Customer customer = returnCustomer(name, b);
 		if (customer != null) {
-			CustomerService.addCustomerTransaction(customer);
+			customerService.addCustomerTransaction(customer);
 		} else {
 			System.out.println("Customer not found.");
 		}
 	}
 
-	static Customer returnCustomer(String name, Branch b) {
+	 public Customer returnCustomer(String name, Branch b) {
 
 		for (Customer customer : b.getCustomers()) {
 			if (customer.getName().equals(name)) {

@@ -4,17 +4,20 @@ import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
 
+import bankpck.interfaces.CustomerService;
+import bankpck.interfaces.TransactionService;
 import bankpck.models.Customer;
 import bankpck.models.Transaction;
 
-public class CustomerService {
+public class CustomerServiceImpl  implements CustomerService{
 
+	private TransactionService transactionService = new TransactionServiceImpl();
 	
 	static BufferedReader reader = 
 			  new BufferedReader(new InputStreamReader(System.in));
 	
 
-	public static Customer addCustomerInformation() {
+	public Customer addCustomerInformation() {
 		System.out.println("What is the name of the customer?");
 		String name = null;
 		try {
@@ -29,7 +32,7 @@ public class CustomerService {
 
 	}
 
-	public static Customer addCustomerInformation(String name) {
+	public Customer addCustomerInformation(String name) {
 		
 		Customer c = new Customer (name);
 		System.out.println("New customer " + name + "added. Please add your first transaction :");
@@ -39,19 +42,28 @@ public class CustomerService {
 	}
 
 	
-	public static void customerInformation(Customer c) {
+	public void customerInformation(Customer c) {
 		int i = 1;
 		System.out.println("Name of customer : " + c.getName());
 		System.out.println("Total number of customer transactions : " + c.getTransactions().size());
 		for (Transaction newT : c.getTransactions()) {
 			System.out.println("Transaction #"+i+" :");
 			System.out.println(newT.toString());
+			i++;
 		}
 		
 	}
 	
-	public static void addCustomerTransaction(Customer c) {
-		Transaction newT = TransactionService.createTransaction();
+	public Double valueOfCustomerTransactions(Customer c) {
+		Double sum = 0.0;
+		for (Transaction t : c.getTransactions()) {
+			sum+=t.getAmmount();
+		}
+		return sum;
+	}
+	
+	public void addCustomerTransaction(Customer c) {
+		Transaction newT = transactionService.createTransaction();
 		c.getTransactions().add(newT);
 		newT.toString();
 	}

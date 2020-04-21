@@ -9,7 +9,7 @@ public class Transaction {
 	private String getName() {
 		return name;
 	}
-	private Double getAmmount() {
+	public Double getAmmount() {
 		return ammount;
 	}
 	public Transaction(String name, Double ammount) {
