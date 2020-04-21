@@ -1,4 +1,4 @@
-package bankpck;
+package bankpck.models;
 
 import java.util.ArrayList;
 
@@ -10,13 +10,13 @@ public class Customer {
 		
 	}
 
-	protected Customer(String name) {
+	public Customer(String name) {
 		this.transactions = new ArrayList<>();
 		this.name = name;
 		
 	}
 
-	ArrayList<Transaction> getTransactions() {
+	public ArrayList<Transaction> getTransactions() {
 		return transactions;
 	}
 

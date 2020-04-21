@@ -1,8 +1,10 @@
-package bankpck;
+package bankpck.services;
 
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
+
+import bankpck.models.Transaction;
 
 public class TransactionService {
 	

@@ -1,9 +1,13 @@
-package bankpck;
+package bankpck.services;
 
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.util.ArrayList;
+
+import bankpck.models.Bank;
+import bankpck.models.Branch;
+import bankpck.models.Customer;
 
 public class BankService {
 

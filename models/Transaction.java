@@ -1,4 +1,4 @@
-package bankpck;
+package bankpck.models;
 
 public class Transaction {
 	private String name;
@@ -12,7 +12,7 @@ public class Transaction {
 	private Double getAmmount() {
 		return ammount;
 	}
-	protected Transaction(String name, Double ammount) {
+	public Transaction(String name, Double ammount) {
 		super();
 		this.name = name;
 		this.ammount = ammount;
