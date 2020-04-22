@@ -3,12 +3,14 @@ package bankpck.models;
 import java.util.ArrayList;
 
 public class Customer {
-	private ArrayList<Transaction> transactions = new ArrayList<>();
+	private ArrayList<Transaction> transactions;
 	private String name;
-	
+	private ArrayList<Account> accounts;
+
 	public Customer() {
 		
 	}
+	
 
 	public Customer(String name) {
 		this.transactions = new ArrayList<>();
@@ -24,6 +26,10 @@ public class Customer {
 		return name;
 	}
 
+
+	public ArrayList<Account> getAccounts() {
+		return accounts;
+	}
 
 	
 }

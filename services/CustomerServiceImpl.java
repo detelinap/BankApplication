@@ -6,6 +6,7 @@ import java.io.InputStreamReader;
 
 import bankpck.interfaces.CustomerService;
 import bankpck.interfaces.TransactionService;
+import bankpck.models.Account;
 import bankpck.models.Customer;
 import bankpck.models.Transaction;
 
@@ -31,6 +32,7 @@ public class CustomerServiceImpl  implements CustomerService{
 		return c;
 
 	}
+	
 
 	public Customer addCustomerInformation(String name) {
 		
@@ -63,6 +65,22 @@ public class CustomerServiceImpl  implements CustomerService{
 	}
 	
 	public void addCustomerTransaction(Customer c) {
+		System.out.println("Please choose an account for the transaction");
+		String choice = null;
+		for (Account account : c.getAccounts()) {
+			System.out.println(account.getName());
+		}
+		System.out.println("Please enter the account you would like to use for the transaction");
+		try {
+			choice = reader.readLine();
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+		for (Account account : c.getAccounts()) {
+			if (account.getName() == choice) {
+				////// TODO Save account
+			}
+		}
 		Transaction newT = transactionService.createTransaction();
 		c.getTransactions().add(newT);
 		newT.toString();
