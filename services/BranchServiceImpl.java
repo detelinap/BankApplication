@@ -1,19 +1,22 @@
-package bankpck.services;
+package services;
 
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
 
-import bankpck.interfaces.BranchService;
-import bankpck.interfaces.CustomerService;
-import bankpck.models.Branch;
-import bankpck.models.Customer;
+import interfaces.AccountService;
+import interfaces.BranchService;
+import interfaces.CustomerService;
+import models.Account;
+import models.Branch;
+import models.Customer;
 
 public class BranchServiceImpl implements BranchService {
 
 	static BufferedReader reader = new BufferedReader(new InputStreamReader(System.in));
 	
 	private CustomerService customerService = new CustomerServiceImpl();
+	private AccountService accountService = new AccountServiceImpl();
 	
 	public Branch addBranch() {
 		System.out.println("What is the name of the Branch?");
@@ -57,8 +60,9 @@ public class BranchServiceImpl implements BranchService {
 	
 	public void addTransactionToCustomer(String name, Branch b) {
 		Customer customer = returnCustomer(name, b);
+		Account account = accountService.chooseAccount(customer);
 		if (customer != null) {
-			customerService.addCustomerTransaction(customer);
+			customerService.addCustomerTransaction(customer, account);
 		} else {
 			System.out.println("Customer not found.");
 		}

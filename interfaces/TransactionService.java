@@ -1,9 +1,13 @@
-package bankpck.interfaces;
+package interfaces;
 
-import bankpck.models.Transaction;
+import models.Account;
+import models.Customer;
+import models.Transaction;
+
+import java.util.ArrayList;
 
 public interface TransactionService {
 	
-	Transaction createTransaction();
+	Transaction createTransaction(Customer c, Account a);
 
 }

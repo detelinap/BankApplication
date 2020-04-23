@@ -1,9 +1,8 @@
-package bankpck;
 
 import java.io.IOException;
 
-import bankpck.models.Bank;
-import bankpck.services.BankServiceImpl;
+import models.Bank;
+import services.BankServiceImpl;
 
 public class Main {
 

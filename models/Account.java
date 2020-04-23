@@ -1,8 +1,10 @@
-package bankpck.models;
+package models;
 
+import java.util.ArrayList;
 import java.util.Date;
 
 public class Account {
+	private ArrayList<Transaction> transactions;
 	private String name;
 	private Customer customer;
 	private Double balance;
@@ -20,9 +22,13 @@ public class Account {
 		this.balance = balance;
 		this.interest = interest;
 		this.date = date;
+		this.transactions = new ArrayList<>();
 	}
 
 
+	public ArrayList<Transaction> getTransactions (){
+		return transactions;
+	}
 	public String getName() {
 		return name;
 	}

@@ -1,19 +1,16 @@
-package bankpck.services;
+package services;
 
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
+import java.sql.SQLOutput;
 import java.util.Calendar;
 import java.util.Date;
 
-import bankpck.interfaces.AccountService;
-import bankpck.models.Account;
-import bankpck.models.Branch;
-import bankpck.models.CreditAccount;
-import bankpck.models.Customer;
-import bankpck.models.DebitAccount;
-import bankpck.models.PensionAccount;
-import bankpck.models.SavingsAccount;
+import interfaces.AccountService;
+import models.*;
+
+import javax.swing.*;
 
 public class AccountServiceImpl implements AccountService{
 
@@ -24,6 +21,7 @@ public class AccountServiceImpl implements AccountService{
 	
 	public Double setBalance() {
 		Double balance;
+		System.out.println("Please set account balance");
 		String newBalance = null;
 		try {
 			newBalance = reader.readLine();
@@ -34,7 +32,7 @@ public class AccountServiceImpl implements AccountService{
 		return balance;
 	}
 	
-	public void printOptions() {
+	public void printAccountOptions() {
 		System.out.println("Your options are:"
 				+ "\n1: Savings account -> Interest is 1%"
 				+ "\n2: Debit account -> Interest is 0.5%"
@@ -45,7 +43,7 @@ public class AccountServiceImpl implements AccountService{
 	
 	public Account setInterest(String name,Customer c, Double balance, Date date) {
 		System.out.println("What type of account is this?");
-		printOptions();
+		printAccountOptions();
 		String choice = null;
 		try {
 			choice = reader.readLine();
@@ -65,7 +63,7 @@ public class AccountServiceImpl implements AccountService{
 			return new PensionAccount(name, c, balance, date);
 		default :
 			System.out.println("It seems you have made an invalid choice.\n");
-			printOptions();
+			printAccountOptions();
 			setInterest(name,c, balance, date);
 			
 		}
@@ -89,5 +87,35 @@ public class AccountServiceImpl implements AccountService{
 		return account;
 		
 	}
-	
+
+	public Account chooseAccount(Customer c) {
+		System.out.println("These are all the accounts for "+c.getName()+" .\nPlease choose one.");
+		String choice = null;
+		for (Account account : c.getAccounts()){
+			System.out.println(account.getName());
+		}
+		try {
+			 choice = reader.readLine();
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+		for (Account account : c.getAccounts()){
+			if (account.getName().equalsIgnoreCase(choice)){
+				return account;
+			}
+		}
+		System.out.println("It seems you have not chosen a correct account. Please try again");
+		Account a = chooseAccount(c);
+		return a;
+	}
+
+	public Double valueOfAccountTransactions(Account a) {
+		Double sum = 0.0;
+		for (Transaction t : a.getTransactions()) {
+			sum+=t.getAmmount();
+		}
+		return sum;
+	}
+
+
 }

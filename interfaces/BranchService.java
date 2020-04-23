@@ -1,7 +1,7 @@
-package bankpck.interfaces;
+package interfaces;
 
-import bankpck.models.Branch;
-import bankpck.models.Customer;
+import models.Branch;
+import models.Customer;
 
 public interface BranchService {
 	Branch addBranch();

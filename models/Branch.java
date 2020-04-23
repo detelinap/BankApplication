@@ -1,4 +1,4 @@
-package bankpck.models;
+package models;
 import java.util.ArrayList;
 
 public class Branch {

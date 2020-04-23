@@ -1,18 +1,20 @@
-package bankpck.services;
+package services;
+
+import interfaces.TransactionService;
+import models.Account;
+import models.Customer;
+import models.Transaction;
 
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
-
-import bankpck.interfaces.TransactionService;
-import bankpck.models.Transaction;
 
 public class TransactionServiceImpl implements TransactionService {
 	
 	static BufferedReader reader = 
 			  new BufferedReader(new InputStreamReader(System.in));
 	
-	public Transaction createTransaction() {
+	public Transaction createTransaction(Customer c, Account a) {
 		System.out.println("What's the name of this transaction?");
 		String name = null;
 		double ammount = 0;

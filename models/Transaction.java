@@ -1,4 +1,4 @@
-package bankpck.models;
+package models;
 
 public class Transaction {
 	private String name;

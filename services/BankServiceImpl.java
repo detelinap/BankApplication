@@ -1,21 +1,23 @@
-package bankpck.services;
+package services;
 
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
-import java.util.ArrayList;
 
-import bankpck.interfaces.BankService;
-import bankpck.interfaces.BranchService;
-import bankpck.interfaces.CustomerService;
-import bankpck.models.Bank;
-import bankpck.models.Branch;
-import bankpck.models.Customer;
+import interfaces.AccountService;
+import interfaces.BankService;
+import interfaces.BranchService;
+import interfaces.CustomerService;
+import models.Account;
+import models.Bank;
+import models.Branch;
+import models.Customer;
 
 public class BankServiceImpl implements BankService {
 
 	BranchService branchService = new BranchServiceImpl();
 	CustomerService customerService = new CustomerServiceImpl();
+	AccountService accountService = new AccountServiceImpl();
 
 	static BufferedReader reader = new BufferedReader(new InputStreamReader(System.in));
 	
@@ -69,7 +71,8 @@ public class BankServiceImpl implements BankService {
 
 	public void addCustomerTransaction(String name, Bank b) {
 		Customer c = returnBankCustomer(name, b);
-		customerService.addCustomerTransaction(c);
+		Account a = accountService.chooseAccount(c);
+		customerService.addCustomerTransaction(c,a);
 	}
 
 	public void addCustomerToBank(Bank b) throws IOException {
@@ -85,7 +88,7 @@ public class BankServiceImpl implements BankService {
 				foundBranch = true;
 			}
 		}
-		if (foundBranch == false) {
+		if (!foundBranch) {
 			System.out.println("Sorry, we didn't find the branch you typed out. Please try again.");
 		}
 	}
@@ -94,25 +97,31 @@ public class BankServiceImpl implements BankService {
 		System.out.println("Please make your choice of the following:" + "\n Write 0 to leave this program"
 				+ "\n Write 1 to make a new Bank" + "\n Write 2 to add a new Branch"
 				+ "\n Write 3 to add a new Customer" + "\n Write 4 to find a Customer"
-				+ "\n Write 5 to add a Customer Transaction"
-				+ "\n Write 6 to print all the information about a customer.");
+				+ "\n Write 5 to add a Customer Transaction" +
+				"\n Write 6 to add a Customer Account.");
 	}
 
 	public void printCustomerInformation(String name, Bank b) {
 		Customer c = returnBankCustomer(name, b);
 		customerService.customerInformation(c);
-		System.out.println("Total value of customer transactions :"+customerService.valueOfCustomerTransactions(c));
+		System.out.println("Total value of customer transactions :"+customerService.valueOfCustomerTransaction(c));
 		
 	}
-	
+
+	public void createCustomerAccount(String name, Bank b){
+		Customer c = returnBankCustomer(name, b);
+		accountService.createAccount(c);
+
+	}
+
 	public void choice(Bank b) throws IOException {
 		int n = 0;
+		String name;
 		printOptions();
 		try {
 			System.out.println("Please make your choice");
 			n = Integer.parseInt(reader.readLine());
 		} catch (IOException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 
@@ -131,19 +140,18 @@ public class BankServiceImpl implements BankService {
 				break;
 			case 4:
 				System.out.println("Please enter the customer's name");
-				String name = reader.readLine();
+				name = reader.readLine();
 				printCustomerInformation(name, b);
 				break;
 			case 5:
 				System.out.println("Please enter the customer's name");
-				String secondName = reader.readLine();
-				addCustomerTransaction(secondName, b);
+				name = reader.readLine();
+				addCustomerTransaction(name, b);
 				break;
-			case 6:
-				System.out.println("Please enter the customer's name");
-				String thirdName = reader.readLine();
-				printCustomerInformation(thirdName,b);
-				break;
+				case 6:
+					System.out.println("Please enter the customer's name");
+					name = reader.readLine();
+
 			default:
 				System.out.println("You have chosen an invalid option. Please see the list of options again and "
 						+ "make a valid choice.");
@@ -151,7 +159,7 @@ public class BankServiceImpl implements BankService {
 
 			}
 			System.out.println("Would you like to see the menu again?");
-			String menu = null;
+			String menu;
 			menu = reader.readLine();
 			if (menu.equalsIgnoreCase("yes")) {
 				printOptions();
