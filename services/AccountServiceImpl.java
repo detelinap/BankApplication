@@ -7,6 +7,7 @@ import java.sql.SQLOutput;
 import java.util.Calendar;
 import java.util.Date;
 
+import com.sun.xml.internal.ws.api.model.wsdl.WSDLOutput;
 import interfaces.AccountService;
 import models.*;
 
@@ -86,6 +87,27 @@ public class AccountServiceImpl implements AccountService{
 		Account account = setInterest(name, c, balance, date);
 		return account;
 		
+	}
+
+	public double calculateInterest(Account a) {
+		double p, r, t, sinterest;
+		System.out.println("Starting sum : ");
+		p = a.getBalance();
+		System.out.println(p);
+		System.out.println("Rate of interest : ");
+		r =  a.getInterest();
+		System.out.println((r*100)+"%");
+		System.out.println("Enter the Time period : ");
+		String time = null;
+		try {
+			time = reader.readLine();
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+		t = Double.valueOf(time);
+		sinterest = p*(r*t)+p;
+		System.out.println("Simple Interest is: " +sinterest);
+		return sinterest;
 	}
 
 	public Account chooseAccount(Customer c) {

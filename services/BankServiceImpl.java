@@ -98,7 +98,8 @@ public class BankServiceImpl implements BankService {
 				+ "\n Write 1 to make a new Bank" + "\n Write 2 to add a new Branch"
 				+ "\n Write 3 to add a new Customer" + "\n Write 4 to find a Customer"
 				+ "\n Write 5 to add a Customer Transaction" +
-				"\n Write 6 to add a Customer Account.");
+				"\n Write 6 to add a Customer Account" +
+				"\n Write 7 to calculate simple Interest based on Account");
 	}
 
 	public void printCustomerInformation(String name, Bank b) {
@@ -106,6 +107,13 @@ public class BankServiceImpl implements BankService {
 		customerService.customerInformation(c);
 		System.out.println("Total value of customer transactions :"+customerService.valueOfCustomerTransaction(c));
 		
+	}
+
+	public void calculateInterest(String customerName, Bank b){
+		Customer c = returnBankCustomer(customerName, b);
+		Account a = null;
+		a = accountService.chooseAccount(c);
+		accountService.calculateInterest(a);
 	}
 
 	public void createCustomerAccount(String name, Bank b){
@@ -151,7 +159,12 @@ public class BankServiceImpl implements BankService {
 				case 6:
 					System.out.println("Please enter the customer's name");
 					name = reader.readLine();
-
+					break;
+				case 7 :
+					System.out.println("Please enter the customer's name");
+					name = reader.readLine();
+					calculateInterest(name, b);
+					break;
 			default:
 				System.out.println("You have chosen an invalid option. Please see the list of options again and "
 						+ "make a valid choice.");
@@ -163,13 +176,14 @@ public class BankServiceImpl implements BankService {
 			menu = reader.readLine();
 			if (menu.equalsIgnoreCase("yes")) {
 				printOptions();
-			}
-			try {
-				System.out.println("Please make your choice. If you would like to exit, press 0");
-				n = Integer.parseInt(reader.readLine());
-			} catch (IOException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
+			}else {
+				try {
+					System.out.println("Please make your choice. If you would like to exit, press 0");
+					n = Integer.parseInt(reader.readLine());
+				} catch (IOException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
 			}
 		}
 	}

@@ -7,5 +7,6 @@ public interface AccountService {
     Account createAccount(Customer c);
     Account chooseAccount(Customer c);
     Double valueOfAccountTransactions(Account a);
+    double calculateInterest(Account a);
 
 }
